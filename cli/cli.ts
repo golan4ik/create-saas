@@ -1,11 +1,41 @@
 #!/usr/bin/env node
 
-import yargs = require('yargs');
+import * as yargs from 'yargs';
+import { startServices } from './run-services';
+import { initRepo } from './init-repository';
 
-const argv = yargs.options({
-  name: { type: 'string' },
-}).argv;
+const commands: any = {
+  run: startServices,
+  init: initRepo,
+};
 
-const name = argv.name || argv._;
+const COMMANDS = ['run', 'add', 'remove'];
 
-console.log(`Hello new sass app with name: ${name}`);
+function getCommandAndArgs(argv: any) {
+  const args = argv._;
+  if (COMMANDS.includes(args[0])) {
+    return { command: args[0], args: args.slice(1) };
+  }
+
+  return { command: 'init', args: argv.name || args[0] };
+}
+
+function getCommandArgs(args: string[]) {
+  if (COMMANDS.includes(args[0])) {
+    return args[0];
+  }
+
+  return 'init';
+}
+
+function run() {
+  const argv = yargs.options({
+    name: { type: 'string' },
+  }).argv;
+
+  const { command, args } = getCommandAndArgs(argv);
+
+  commands[command](args);
+}
+
+run();

@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "lint": "tslint -p tsconfig.json -c tslint.json --fix",
+    "cli": "ts-node cli/cli.ts",
     "pre-commit": "npm run prettier && npm run lint",
     "prettier": "prettier 'cli/**/*.{js,ts,json}' --write"
   },
@@ -32,12 +33,20 @@
   },
   "homepage": "https://github.com/frontegg/create-saas#readme",
   "dependencies": {
+    "chalk": "^4.1.0",
+    "elegant-spinner": "^2.0.0",
+    "log-update": "^4.0.0",
+    "prompts": "^2.3.2",
+    "shelljs": "^0.8.4",
     "yargs": "^15.4.1"
   },
   "devDependencies": {
+    "@types/prompts": "^2.0.8",
+    "@types/shelljs": "^0.8.8",
     "@types/yargs": "^15.0.5",
     "husky": "^4.2.5",
     "prettier": "^2.0.5",
+    "ts-node": "^9.0.0",
     "tslint": "^6.1.3",
     "tslint-config-airbnb": "^5.11.2",
     "typescript": "^3.9.7"
